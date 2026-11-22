@@ -3,13 +3,13 @@ package models;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TrainerPkmn {
+public class trainerPkmn {
     private String trainerName;
     private String Id;
     private String Badges;
-    private List<TrainerPkmn> equipoPkmn = new ArrayList<>();
+    private List<trainerPkmn> equipoPkmn = new ArrayList<>();
 
-    public TrainerPkmn(String trainerName, String Id) {
+    public trainerPkmn(String trainerName, String Id) {
         this.trainerName = trainerName;
         this.Id = Id;
     }
