@@ -2,18 +2,19 @@ package models;
 
 public class Pokemon {
     public String nombre;
-    private String animal;
+    private String raza;
     public int nivel;
     private String numero;
-    public String entrenador;
-    private String tipo;
+    public String trainer;
+    private String type;
+    private String Id;
 
     //obtener el animal
     public String getAnimal() {
-        return animal;
+        return raza;
     }
     public void setAnimal(String animal) {
-        this.animal = animal;
+        this.raza = animal;
     }
 
     //obtener el numero
@@ -26,20 +27,29 @@ public class Pokemon {
 
     //obtener el tipo
     public String getTipo() {
-        return tipo;
+        return type;
     }
     public void setTipo(String tipo) {
-        this.tipo = tipo;
+        this.type = tipo;
+    }
+
+    public String getId() {
+        return Id;
+    }
+
+    public void setId(String Id) {
+        this.Id = Id;
     }
 
     @Override
     public String toString() {
         return "Pokemon[" +
-                "Nombre: " + nombre +
-                "| animal: " + animal +
+                "| N.°: " + numero +
+                "| Id=" + Id +
+                "| Nombre: " + nombre +
+                "| animal: " + raza +
+                "| tipo: " + type +
                 "| nivel: " + nivel +
-                "| numero: " + numero +
-                "| tipo: " + tipo +
                 "]";
     }
 

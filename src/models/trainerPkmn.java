@@ -19,4 +19,18 @@ public class trainerPkmn {
     public void setTrainerName(String trainerName) {  // No se que hacer apartir de aqui, Ayuda :c
 
     }
+    public String getId(){
+        return Id;
+    }
+    public void setId(String Id){
+        this.Id=Id;
+    }
+
+    @Override
+    public String toString(){
+        return "models.trainerPkmn{;"+
+                "TrainerName='"+ trainerName +
+                "| Id='" + Id +
+                "'}";
+    }
 }
