@@ -1,0 +1,16 @@
+
+# Archivos compilados
+/out/
+/build/
+
+# Archivos de IntelliJ IDEA
+/.idea/
+/*.iml
+
+# Archivos temporales
+*.class
+*.log
+
+# Configuracion local
+.DS_Store
+Thumbs.db
