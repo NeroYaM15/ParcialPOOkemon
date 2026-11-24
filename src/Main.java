@@ -14,7 +14,7 @@ public class Main {
         });
         // esto es una prueba de lo del pokemon no le ponga cuidado
         //Pokemon pk1 = new Pokemon (pk1);
-        //pk1.settype("juan");
+        //pk1.settype("juan :v");
         //pk1.nombre = "Juan";
         //pk1.nivel = 2;
         //pk1.setAnimal("charmander");

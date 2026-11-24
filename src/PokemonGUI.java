@@ -12,7 +12,7 @@ public class PokemonGUI extends JFrame {
             JOptionPane.showMessageDialog(this, "Se a elegido a: " + elegido);
         });
 
-        add(new JLabel("Elija un Pokemon;"));
+        add(new JLabel("Elija un Pokemon: "));
         add(comboPokedex);
         add(GuardarPkmn);
     }

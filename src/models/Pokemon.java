@@ -18,7 +18,7 @@ public class Pokemon {
     @Override
     public String toString() {
         return "Pokemon[" +
-                "| Id=" + pkmnId +
+                "| Id: " + pkmnId +
                 "| Nombre: " + pkmnName +
                 "| tipo: " + Pokedex +
                 "| nivel: " + pkmnLvl +

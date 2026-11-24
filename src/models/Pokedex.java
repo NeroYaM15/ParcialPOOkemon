@@ -188,4 +188,5 @@ package models;
     P0149_Dragonite_Dragon_Volador,
     P0150_Mewtwo_Psiquico,
     P0151_Mew_Psiquico,
+
 }
