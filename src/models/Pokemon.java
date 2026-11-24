@@ -2,28 +2,10 @@ package models;
 
 public class Pokemon {
     private String pkmnName;
-    private String pkmnRace;
     private int pkmnLvl;
-    private String pkmnNumber;
     private String trainer;
-    private Enum type;
+    private Enum Pokedex;
     private String pkmnId;
-
-    //obtener el animal
-    public String getPkmnRace() {
-        return pkmnRace;
-    }
-    public void setPkmnRace(String race) {
-        this.pkmnRace = race;
-    }
-
-    //obtener el numero
-    public String getPkmnNumber() {
-        return pkmnNumber;
-    }
-    public void setNumero(String number) {
-        this.pkmnNumber = number;
-    }
 
     public String getPkmnIdId() {
         return pkmnId;
@@ -36,20 +18,16 @@ public class Pokemon {
     @Override
     public String toString() {
         return "Pokemon[" +
-                "| N.°: " + pkmnNumber +
                 "| Id=" + pkmnId +
                 "| Nombre: " + pkmnName +
-                "| animal: " + pkmnRace +
-                "| tipo: " + type +
+                "| tipo: " + Pokedex +
                 "| nivel: " + pkmnLvl +
                 "]";
     }
 
     public Pokemon(String nombre, String raza, int nivel, String numero, String trainer, String Id) {
         this.pkmnName = nombre;
-        this.pkmnRace = raza;
         this.pkmnLvl = nivel;
-        this.pkmnNumber = numero;
         this.trainer = trainer;
         this.pkmnId = Id;
     }

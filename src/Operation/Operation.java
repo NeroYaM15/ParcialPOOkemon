@@ -2,7 +2,7 @@ package Operation;
 
 import models.TrainerPkmn;
 import models.Pokemon;
-import models.Type;
+import models.Pokedex;
 import models.Badges;
 
 import java.io.BufferedReader;
@@ -153,6 +153,7 @@ public class Operation {
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
+        return List.of();
     }
 
     public static String PkmnId(){
