@@ -70,7 +70,7 @@ public class Operation {
                 String[] d = trainerReader.split(",");
                 if (d.length < 5) continue;
 
-                if (!encontrado && d[1].equalsIgnoreCase(trainerToUpdate.getTrainerName()){
+                if (!encontrado && d[1].equalsIgnoreCase(trainerToUpdate.trainerName){
                     if (d.length < 6){
                         d = Arrays.copyOf(d, 6);
                     }
@@ -93,7 +93,42 @@ public class Operation {
         }
     }
 
+    public static void DeleteTrainer(TrainerPkmn trainerToDelete) {
+        StringBuilder contenido = new StringBuilder();
+        boolean encontrado = false;
 
+        try {
+            FileReader reader = new FileReader("trainers.csv");
+            BufferedReader buffer = new BufferedReader(reader);
+            String trainerReader;
+
+            while ((trainerReader = buffer.readLine()) != null){
+                if (trainerReader.isBlank()) continue;
+                String[] d = trainerReader.split(",");
+                if (d.length < 5) continue;
+
+                if (!encontrado && d[1].equalsIgnoreCase(trainerToDelete.trainerName){
+                    encontrado = true;
+                    continue;
+                }
+                contenido.append(trainerReader).append("\n");
+            }
+            buffer.close();
+
+            if (encontrado){
+                FileWriter writer = new FileWriter("trainers.csv", false);
+                writer.write(contenido.toString());
+                writer.close();
+                System.out.println("Trainer deleted successfully");
+            }
+            else {
+                System.out.println("Trainer not deleted successfully");
+            }
+        }
+        catch (IOException e){
+            System.out.println(e.getMessage());
+        }
+    }
 
     public static String PkmnId(){
         Set<String> Usados = new HashSet<>();
