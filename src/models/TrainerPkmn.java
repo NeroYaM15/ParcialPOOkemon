@@ -1,7 +1,10 @@
 package models;
 
+import models.Pokemon;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class TrainerPkmn {
     private String trainerName;
@@ -25,6 +28,18 @@ public class TrainerPkmn {
     public void setId(String Id){
         this.Id=Id;
     }
+    public String getBadges() {
+        return Badges;
+    }
+    public void setBadges(String Badges) {
+        this.Badges = Badges;
+    }
+    public List<Pokemon> getEquipoPkmn() {
+        return equipoPkmn;
+    }
+    public void setEquipoPkmn(List<Pokemon> equipoPkmn) {
+        this.equipoPkmn = equipoPkmn;
+    }
 
     @Override
     public String toString(){
@@ -43,6 +58,7 @@ public class TrainerPkmn {
 
     public String trainerToCSV(){
         String badge = (Badges==null) ? "No_Badges" : Badges;
-        return this.getId()+","+this.trainerName+","+this.Badges+","+this.equipoPkmn+",";
+        String equipo = equipoPkmn.stream().map(Pokemon::getPkmnIdId).collect(java.util.stream.Collectors.joining(","));
+        return this.getId()+","+this.trainerName+ "," + badge + "," +equipo;
     }
 }

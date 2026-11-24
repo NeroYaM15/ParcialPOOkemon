@@ -44,8 +44,7 @@ public class Operation {
     public  static void saveTrainer(TrainerPkmn trainerToSave) {
         trainerToSave.setId(IdTrainer());
 
-        try {
-            FileWriter writer = new FileWriter("trainers.csv", true);
+        try (FileWriter writer = new FileWriter("trainers.csv", true);){
             writer.write(trainerToSave.trainerToCSV());
             writer.write("\n");
             writer.close();
@@ -67,17 +66,18 @@ public class Operation {
 
             while ((trainerReader = buffer.readLine()) != null){
                 if (trainerReader.isBlank()) continue;
-                String[] d = trainerReader.split(",");
-                if (d.length < 5) continue;
+                String[] d = trainerReader.split(",", -1);
+                if (d.length < 4) continue;
 
-                if (!encontrado && d[1].equalsIgnoreCase(trainerToUpdate.trainerName){
-                    if (d.length < 6){
-                        d = Arrays.copyOf(d, 6);
+                if (!encontrado && d[1].equalsIgnoreCase(trainerToUpdate.getTrainerName())){
+                    encontrado = true;
+                    if (d.length < 4){
+                        d = Arrays.copyOf(d, 4);
                     }
-                    d[2] = String.valueOf(trainerToUpdate.Id);
-                    d[4] = String.valueOf(trainerToUpdate.equipoPkmn);
+                    d[2] = String.valueOf(trainerToUpdate.getBadges());
+                    d[3] = String.valueOf(trainerToUpdate.getEquipoPkmn());
                 }
-                contenido.append(trainerReader).append("\n");
+                contenido.append(String.join(",", d)).append("\n");
             }
             buffer.close();
 
@@ -86,6 +86,9 @@ public class Operation {
                 writer.write(contenido.toString());
                 writer.close();
                 System.out.println("Trainer updated successfully");
+            }
+            else  {
+                System.out.println("No se pudo actualizar el trainer");
             }
         }
         catch (IOException e){
@@ -105,9 +108,9 @@ public class Operation {
             while ((trainerReader = buffer.readLine()) != null){
                 if (trainerReader.isBlank()) continue;
                 String[] d = trainerReader.split(",");
-                if (d.length < 5) continue;
+                if (d.length < 4) continue;
 
-                if (!encontrado && d[1].equalsIgnoreCase(trainerToDelete.trainerName){
+                if (d[1].equalsIgnoreCase(trainerToDelete.getTrainerName())){
                     encontrado = true;
                     continue;
                 }
@@ -126,6 +129,28 @@ public class Operation {
             }
         }
         catch (IOException e){
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static List<TrainerPkmn> ReadTrainer() {
+        File archive = new File("trainers.csv");
+        if (!archive.exists()) {
+            System.out.println("No se encontro el trainer");
+        }
+        try (BufferedReader buffer = new BufferedReader(new FileReader(archive))) {
+            String line;
+            while ((line = buffer.readLine()) != null) {
+                if (line.isBlank()) {
+                    continue;
+                }
+                String[] d = line.split(",", -1);
+                if (d.length < 4) {
+                    continue;
+                }
+                System.out.println("ID: " + d[0] + " | Nombre: " + d[1] + " | Medallas: " + d[2] + " | Pokemones: " + d[3]);
+            }
+        } catch (IOException e) {
             System.out.println(e.getMessage());
         }
     }
