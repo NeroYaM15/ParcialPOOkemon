@@ -108,13 +108,12 @@ public class Operation {
                 String[] d = trainerReader.split(",", -1);
                 if (d.length < 4) continue;
 
-                if (!encontrado && d[1].equalsIgnoreCase(trainerToUpdate.getTrainerName())){
+                if (!encontrado && d[0].equals(trainerToUpdate.getId())){
                     encontrado = true;
                     if (d.length < 4){
                         d = Arrays.copyOf(d, 4);
                     }
-                    d[2] = String.valueOf(trainerToUpdate.getbadges());
-                    d[3] = String.valueOf(trainerToUpdate.getEquipoPkmn());
+                    d = trainerToUpdate.trainerToCSV().split(",", -1);
                 }
                 contenido.append(String.join(",", d)).append("\n");
             }
@@ -146,10 +145,10 @@ public class Operation {
 
             while ((trainerReader = buffer.readLine()) != null){
                 if (trainerReader.isBlank()) continue;
-                String[] d = trainerReader.split(",");
+                String[] d = trainerReader.split(",", -1);
                 if (d.length < 4) continue;
 
-                if (d[1].equalsIgnoreCase(trainerToDelete.getTrainerName())){
+                if (d[0].equals(trainerToDelete.getId())){
                     encontrado = true;
                     continue;
                 }
@@ -243,18 +242,17 @@ public class Operation {
 
             while ((pokemonReader = buffer.readLine()) != null){
                 if (pokemonReader.isBlank()) continue;
-                String[] d = pokemonReader.split(",");
+                String[] d = pokemonReader.split(",", -1);
                 if (d.length < 4) continue;
 
-                if (!encontrado && d[1].equalsIgnoreCase(pokemonToUpdate.getPkmnName())) {
+                if (!encontrado && d[10].equals(pokemonToUpdate.getPkmnId())) {
                     encontrado = true;
                     if (d.length < 4) {
                         d = Arrays.copyOf(d, 4);
                     }
-                    d[2] = String.valueOf(pokemonToUpdate.getPkmnLvl());
-                    d[3] = String.valueOf(pokemonToUpdate.getTrainer());
+                    d = pokemonToUpdate.PokemonToCSV().split(",", -1);
                 }
-                contenido.append(pokemonReader).append("\n");
+                contenido.append(String.join(",", d)).append("\n");
             }
             buffer.close();
             if (encontrado){
@@ -283,10 +281,10 @@ public class Operation {
 
             while ((pokemonReader = buffer.readLine()) != null){
                 if (pokemonReader.isBlank()) continue;
-                String[] d = pokemonReader.split(",");
+                String[] d = pokemonReader.split(",",-1);
                 if (d.length < 4) continue;
 
-                if (!encontrado && d[1].equalsIgnoreCase(pokemonToDelete.getPkmnName())) {
+                if (!encontrado && d[0].equals(pokemonToDelete.getPkmnId())) {
                     encontrado = true;
                     continue;
                 }
@@ -349,7 +347,7 @@ public class Operation {
             if(d.length < 4){
                 continue;
             } try{
-                Pokemon p = new Pokemon(d[1], Integer.parseInt(d[2].trim()) d[3], d[0]);
+                Pokemon p = new Pokemon(d[1], Integer.parseInt(d[2].trim()), d[3], d[0]);
                 if (d.length >= 5 && !d[4].isEmpty()) {
                     p.setPokedex(Pokedex.valueOf(d[4]));
                 }
@@ -385,7 +383,7 @@ public class Operation {
                 if (!d[2].isEmpty() && !d[2].equals("No_Badges")) {
                     for (String nombre : d[2].split(":")){
                         try {
-                            t.agregarBadges(badges.valuesOf(nombre.trim()));
+                            t.agregarBadges(badges.valueOf(nombre.trim()));
                         } catch (IllegalArgumentException e){
 
                         }

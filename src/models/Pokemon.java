@@ -34,7 +34,14 @@ public class Pokemon {
     public void setPkmnName(String pkmnName) {
         this.pkmnName = pkmnName;
     }
-//FALTA LA POKEDEX :[
+
+    public Enum getPokedex() {
+        return Pokedex;
+    }
+
+    public void setPokedex(Enum pokedex) {
+        Pokedex = pokedex;
+    }
 
     @Override
     public String toString() {

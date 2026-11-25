@@ -96,13 +96,33 @@ public class PokemonGUI extends JFrame {
         recargarDatos();
     }
 
+    private void recargarDatos(){
+        String IdTrainer = idDe(comboEntrenador.getSelectedItem());
+        String IdSawTrainer = idDe(comboVerTrainer.getSelectedItem());
+        String IdSawPokemon = idDe(comboVerPokemon.getSelectedItem());
+
+        entrnadores = Operation.ListTrainers();
+        pokemons = Operation.ListPokemon();
+
+        comboEntrenador.setModel(new DefaultComboBoxModel<>(entrnadores.toArray(new TrainerPkmn[0])));
+        comboVerTrainer.setModel(new DefaultComboBoxModel<>(entrnadores.toArray(new TrainerPkmn[0])));
+        comboVerPokemon.setModel(new DefaultComboBoxModel<>(pokemons.toArray(new Pokemon[0])));
+
+        seleccionarPorId(comboEntrenador, idTrainerGenerado);
+        seleccionarPorId(comboVerTrainer, idTrainerGenerado);
+        seleccionarPorId(comboVerPokemon, idPkmnGenerado);
+
+        mostrarInfoTrainer();
+        mostrarInfoPokemon();
+    }
+
     private boolean formularioCompleto() {
         Object[] componentes = {
                 MainMenu, PestañasPrincipal, TrainerName, GenerarIdTrainer,CrearTrainer,ModificarTrainer,BorrarTrainer,
                 NombrePkmn, PkmnNivel, guardarPokemon, eliminarPokemon, GidPkmn, IDCreado, RpkmnId, comboBadges, comboPokedex, comboEntrenador
         };
         String[] nombres = {
-                "MainMenu", "PestañasPrincipales", "TrainerName", "GenerarIdTrainer", "CrearTrainer", "PkmnNivel", "guardarPokemon", "GidPkmn"
+                "MainMenu", "PestañasPrincipales", "TrainerName", "GenerarIdTrainer", "CrearTrainer", "PkmnNivel", "guardarPokemon", "GidPkmn",
                 "comboBahges", "comboPokedex", "comboEntrenador", "ModificarTraine", "BorrarTrainer", "NombrePkmn", "RpkmnId", "IDCreado", "eliminarPokemon"
         };
 
@@ -183,12 +203,11 @@ public class PokemonGUI extends JFrame {
             t.setTrainerName(nuevoNombre);
         }
 
-        String extra "";
+        String extra = "";
         if (medalla != null && !t.agrgarBadge(medalla)) {
             extra = "\n(Ya poseia esa medalla)";
-            Operation.UpdateTrainer(t);
-
         }
+        Operation.UpdateTrainer(t);
         TrainerName.setText("");
         comboBadges.setSelectedIndex(-1);
         recargarDatos();
@@ -238,6 +257,49 @@ public class PokemonGUI extends JFrame {
             aviso ("Elige un entrenador");
             return;
         }
+
+        Pokemon nuevo = new Pokemon(nombre, nivel, dueño.getId(), idPkmnGenerado);
+        if (!dueño.agregarPokemon(nuevo)){
+            aviso(dueño.getTrainerName()+" ya tiene "+ TrainerPkmn.MAX_POKEMON+"Pokemon, no puede tener mas.");
+            return;
+        }
+        Operation.savePkmn(nuevo);
+        Operation.UpdateTrainer(dueño);
+
+        nombraciondelpkmn.setText("");
+        comboVerPokemon.setSelectedIndex(-1);
+        PkmnNivel.setValue(1);
+        idPkmnGenerado = null;
+        RpkmnId.setText("");
+        recargarDatos();
+        aviso("Pokemon guardado: "+nombre);
+
+    }
+    private void accionEliminarPokemon(){
+        Pokemon p = elegirPokemon("Eliminar pokemon");
+        if (p == null){
+            return;
+        }
+        int respuesta = JOptionPane.showConfirmDialog(this, "¿Eliminar a "+p.getPkmnName()+"?", "Confirmar", JOptionPane.YES_NO_OPTION);
+        if (respuesta != JOptionPane.YES_OPTION){
+            return;
+        }
+        Operation.DeletePkmn(p);
+        TrainerPkmn dueño = buscarTrainerPorId(p.getTrainer());
+        if (dueño != null){
+            dueño.eliminarPokemon(p);
+            Operation.UpdateTrainer(dueño);
+        }
+        recargarDatos();
+        aviso("Pokemon eliminado");
+    }
+
+    private JPanel crearPanelConsulta() {
+        JPanel panel = new JPanel();
+        panel.setLayou(new BoxLayout(panel, BoxLayout.Y_AXIS));
+
+        panel.add(crearSeccion("Ver informacion de un Pokemon", "Entrenador:", comboVerTrainer));
+
 
     }
 
