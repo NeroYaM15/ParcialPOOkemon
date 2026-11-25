@@ -3,10 +3,13 @@ package Operation;
 import models.TrainerPkmn;
 import models.Pokemon;
 import models.Pokedex;
-import models.Badges;
+import models.badges;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.Random;
 import java.io.*;
@@ -17,6 +20,39 @@ import java.util.List;
 import java.util.ArrayList;
 
 public class Operation {
+
+    private static final String TRAINERS_FILE = "Trainers.csv";
+    private static final String POKEMON_FILE = "Pokemon.csv";
+
+    private static List<String> leerLineas(String archivo) {
+        List<String> lineas = new ArrayList<>();
+        File f = new File(archivo);
+        if (!f.exists()){
+            return lineas;
+        }
+        try (BufferedReader buffer = new BufferedReader(new FileReader(f))) {
+            String line;
+            while ((line = buffer.readLine()) != null){
+                if(!line.isBlank()) {
+                    lineas.add(line);
+                }
+            }
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+        return lineas;
+    }
+
+    private static void escribirLineas(String archivo, List<String> lineas) {
+        try (FileWriter writer = new FileWriter(archivo, false)) {
+            for (String 1 : lineas) {
+                writer.write(1 + "\n");
+            }
+        }catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
     //NO SE SI ESTA JODA FUNCIONE :D
     public static String IdTrainer(){
         Set<String> Usados = new HashSet<>();
@@ -74,7 +110,7 @@ public class Operation {
                     if (d.length < 4){
                         d = Arrays.copyOf(d, 4);
                     }
-                    d[2] = String.valueOf(trainerToUpdate.getBadges());
+                    d[2] = String.valueOf(trainerToUpdate.getbadges());
                     d[3] = String.valueOf(trainerToUpdate.getEquipoPkmn());
                 }
                 contenido.append(String.join(",", d)).append("\n");
