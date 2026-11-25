@@ -20,25 +20,29 @@ public class PokemonGUI extends JFrame {
     private JPanel MainMenu;
     private JPanel TrainerPkmnMenu;
     private JTabbedPane PestañasPrincipal;
-    private JTextField IdTrainer;
     private JTextField TrainerName;
-    private JTextField Badges;
     private JButton GenerarIdTrainer;
     private JButton CrearTrainer;
     private JButton ModificarTrainer;
     private JButton BorrarTrainer;
-    private JTable Trainers;
     private JTextField nombraciondelpkmn;
-    private JTextField textField3;
-    private JComboBox comboBox1;
-    private JSpinner spinner1;
-    private JComboBox comboBox2;
+    private JComboBox comboEntrenador;
+    private JSpinner PkmnNivel;
 
-    private JButton btnNombrepkmn;
-    private JButton button3;
-    private JButton button4;
-    private JTable table1;
+    private JButton guardarPokemon;
+    private JButton eliminarPokemon;
     private JLabel NombrePkmn;
+    private JLabel trainerNameLabel;
+    private JLabel EntrenadorPkmn;
+    private JButton GidPkmn;
+    private JLabel IDCreado;
+    private JComboBox comboBadges;
+    private JLabel PkmnId;
+    private JLabel RpkmnId;
+    private JLabel Nivel;
 
+    private void createUIComponents() {
+        // TODO: place custom component creation code here
+    }
 }
 //ME FALTA TERMINAR LA GUI

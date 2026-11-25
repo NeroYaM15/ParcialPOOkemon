@@ -1,6 +1,6 @@
 package models;
 
-public enum Badges {
+public enum badges {
     Medalla_Roca,
     Medalla_Cascada,
     Medalla_Trueno,
