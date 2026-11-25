@@ -18,7 +18,7 @@ public class TrainerPkmn {
         return trainerName;
     }
     public void setTrainerName(String trainerName) {
-        this.trainerName = trainerName;       // No se que hacer apartir de aqui, Ayuda :c
+        this.trainerName = trainerName;       // No se que hacer apartir de aqui, Ayuda :[
     }
     public String getId(){
         return Id;

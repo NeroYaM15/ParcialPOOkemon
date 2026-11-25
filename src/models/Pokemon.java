@@ -34,7 +34,7 @@ public class Pokemon {
     public void setPkmnName(String pkmnName) {
         this.pkmnName = pkmnName;
     }
-//FALTA LA POKEDEX
+//FALTA LA POKEDEX :[
 
     @Override
     public String toString() {

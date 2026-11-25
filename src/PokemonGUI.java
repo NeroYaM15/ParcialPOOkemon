@@ -1,7 +1,37 @@
 import models.Pokedex;
 import javax.swing.*;
+import  Operation.Operation;
+import models.badges;
+import models.Pokemon;
+import models.TrainerPkmn;
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 public class PokemonGUI extends JFrame {
+    private JPanel MainMenu;
+    private JPanel TrainerPkmnMenu;
+    private JTabbedPane PestañasPrincipal;
+    private JTextField TrainerName;
+    private JButton GenerarIdTrainer;
+    private JButton CrearTrainer;
+    private JButton ModificarTrainer;
+    private JButton BorrarTrainer;
+    private JTextField nombraciondelpkmn;
+    private JComboBox<TrainerPkmn> comboEntrenador;
+    private JSpinner PkmnNivel;
+
+    private JButton guardarPokemon;
+    private JButton eliminarPokemon;
+    private JLabel NombrePkmn;
+    private JLabel trainerNameLabel;
+    private JLabel EntrenadorPkmn;
+    private JButton GidPkmn;
+    private JLabel IDCreado;
+    private JComboBox<badges> comboBadges;
+    private JLabel PkmnId;
+    private JLabel RpkmnId;
+    private JLabel Nivel;
     private JComboBox <Pokedex> comboPokedex;
 
     public PokemonGUI(){
@@ -17,29 +47,8 @@ public class PokemonGUI extends JFrame {
         add(GuardarPkmn);
     }
 
-    private JPanel MainMenu;
-    private JPanel TrainerPkmnMenu;
-    private JTabbedPane PestañasPrincipal;
-    private JTextField TrainerName;
-    private JButton GenerarIdTrainer;
-    private JButton CrearTrainer;
-    private JButton ModificarTrainer;
-    private JButton BorrarTrainer;
-    private JTextField nombraciondelpkmn;
-    private JComboBox comboEntrenador;
-    private JSpinner PkmnNivel;
 
-    private JButton guardarPokemon;
-    private JButton eliminarPokemon;
-    private JLabel NombrePkmn;
-    private JLabel trainerNameLabel;
-    private JLabel EntrenadorPkmn;
-    private JButton GidPkmn;
-    private JLabel IDCreado;
-    private JComboBox comboBadges;
-    private JLabel PkmnId;
-    private JLabel RpkmnId;
-    private JLabel Nivel;
+
 
     private void createUIComponents() {
         // TODO: place custom component creation code here
