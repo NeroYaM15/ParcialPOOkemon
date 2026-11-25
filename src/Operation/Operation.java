@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.ArrayList;
 
 public class Operation {
+    /*
 
     private static final String TRAINERS_FILE = "Trainers.csv";
     private static final String POKEMON_FILE = "Pokemon.csv";
@@ -52,6 +53,8 @@ public class Operation {
             System.out.println(e.getMessage());
         }
     }
+
+     */
 
     //NO SE SI ESTA JODA FUNCIONE :D
     public static String IdTrainer(){
@@ -327,5 +330,77 @@ public class Operation {
             System.out.println(e.getMessage());
         }
         return List.of();
+    }
+
+    //arreglos faltantes
+    public static List<Pokemon> ListPokemon() {
+        List<Pokemon> lista = new ArrayList<>();
+        File archive = new File("Pokemon.csv");
+        if (!archive.exists()) {
+            return lista;
+        }
+        try (BufferedReader buffer = new BufferedReader(new FileReader(archive))) {
+        String line;
+        while ((line = buffer.readLine()) != null){
+            if (line.isBlank()) {
+                continue;
+            }
+            String[] d = line.split(",", -1);
+            if(d.length < 4){
+                continue;
+            } try{
+                Pokemon p = new Pokemon(d[1], Integer.parseInt(d[2].trim()) d[3], d[0]);
+                if (d.length >= 5 && !d[4].isEmpty()) {
+                    p.setPokedex(Pokedex.valueOf(d[4]));
+                }
+                lista.add(p);
+            } catch (IllegalArgumentException e) {
+                System.out.println("Linea ilegible: " + line);
+            }
+        }
+        }catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+        return lista;
+    }
+
+    public static List<TrainerPkmn> ListTrainers() {
+        List<TrainerPkmn> trainers = new ArrayList<>();
+        File archive = new File("trainers.csv");
+        if (!archive.exists()) {
+            return trainers;
+        }
+        List<Pokemon> todosPkmn = ListPokemon();
+        try (BufferedReader buffer = new BufferedReader(new FileReader(archive))){
+            String line;
+            while ((line = buffer.readLine()) != null){
+                if (line.isBlank()) {
+                    continue;
+                }
+                String[] d = line.split(",", -1);
+                if (d.length < 4) {
+                    continue;
+                }
+                TrainerPkmn t = new TrainerPkmn(d[1], d[0]);
+                if (!d[2].isEmpty() && !d[2].equals("No_Badges")) {
+                    for (String nombre : d[2].split(":")){
+                        try {
+                            t.agregarBadges(badges.valuesOf(nombre.trim()));
+                        } catch (IllegalArgumentException e){
+
+                        }
+                    }
+                }
+                for (Pokemon p : todosPkmn) {
+                    if (d[0].equals(p.getTrainer())) {
+                        t.agregarPokemon(p);
+                    }
+                }
+                trainers.add(t);
+            }
+        }catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+        return trainers;
     }
 }
