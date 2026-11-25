@@ -1,7 +1,5 @@
 package models;
 
-import models.Pokemon;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -9,7 +7,7 @@ import java.util.stream.Collectors;
 public class TrainerPkmn {
     private String trainerName;
     private String Id;
-    private String Badges;
+    private List<Badges> Badges = new ArrayList<>();
     private List<Pokemon> equipoPkmn = new ArrayList<>();
 
     public TrainerPkmn(String trainerName, String Id) {
@@ -28,10 +26,10 @@ public class TrainerPkmn {
     public void setId(String Id){
         this.Id=Id;
     }
-    public String getBadges() {
+    public List<Badges> getBadges() {
         return Badges;
     }
-    public void setBadges(String Badges) {
+    public void setBadges(List<Badges> Badges) {
         this.Badges = Badges;
     }
     public List<Pokemon> getEquipoPkmn() {
@@ -49,7 +47,7 @@ public class TrainerPkmn {
                 "'}";
     }
 
-    public TrainerPkmn(String trainerName,String Id,String Badges,List<Pokemon> equipoPkmn){
+    public TrainerPkmn(String trainerName, String Id, List<Badges> Badges, List<Pokemon> equipoPkmn){
         this.trainerName=trainerName;
         this.Id=Id;
         this.Badges=Badges;
@@ -57,8 +55,8 @@ public class TrainerPkmn {
     }
 
     public String trainerToCSV(){
-        String badge = (Badges==null) ? "No_Badges" : Badges;
-        String equipo = equipoPkmn.stream().map(Pokemon::getPkmnIdId).collect(java.util.stream.Collectors.joining(","));
+        String badge = (Badges==null) ? "No_Badges" : Badges.toString();
+        String equipo = equipoPkmn.stream().map(Pokemon::getPkmnId).collect(Collectors.joining(";"));
         return this.getId()+","+this.trainerName+ "," + badge + "," +equipo;
     }
 }

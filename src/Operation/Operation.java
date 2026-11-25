@@ -155,7 +155,7 @@ public class Operation {
         }
         return List.of();
     }
-
+//TODO:Toca incluir los pokemones de pokedex apartir de aqui
     public static String PkmnId(){
         Set<String> Usados = new HashSet<>();
 
@@ -179,4 +179,117 @@ public class Operation {
         return nuevo;
     }
 
+    public static void savePkmn(Pokemon pokemonToSave) {
+        pokemonToSave.setPkmnId(PkmnId());
+
+        try (FileWriter writer = new FileWriter("Pokemon.csv", true);){
+            writer.write(pokemonToSave.PokemonToCSV());
+            writer.write("\n");
+            writer.close();
+            System.out.println("Pokemon saved successfully");
+        }
+        catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static void UpdatePkmn(Pokemon pokemonToUpdate) {
+        StringBuilder contenido = new StringBuilder();
+        boolean encontrado = false;
+
+        try {
+            FileReader reader = new FileReader("Pokemon.csv");
+            BufferedReader buffer = new BufferedReader(reader);
+            String pokemonReader;
+
+            while ((pokemonReader = buffer.readLine()) != null){
+                if (pokemonReader.isBlank()) continue;
+                String[] d = pokemonReader.split(",");
+                if (d.length < 4) continue;
+
+                if (!encontrado && d[1].equalsIgnoreCase(pokemonToUpdate.getPkmnName())) {
+                    encontrado = true;
+                    if (d.length < 4) {
+                        d = Arrays.copyOf(d, 4);
+                    }
+                    d[2] = String.valueOf(pokemonToUpdate.getPkmnLvl());
+                    d[3] = String.valueOf(pokemonToUpdate.getTrainer());
+                }
+                contenido.append(pokemonReader).append("\n");
+            }
+            buffer.close();
+            if (encontrado){
+                FileWriter writer = new FileWriter("Pokemon.csv", false);
+                writer.write(contenido.toString());
+                writer.close();
+                System.out.println("Pokemon updated successfully");
+            }
+            else  {
+                System.out.println("No se pudo actualizar el pokemon");
+            }
+        }
+        catch (IOException e){
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static void DeletePkmn(Pokemon pokemonToDelete) {
+        StringBuilder contenido = new StringBuilder();
+        boolean encontrado = false;
+
+        try {
+            FileReader reader = new FileReader("Pokemon.csv");
+            BufferedReader buffer = new BufferedReader(reader);
+            String pokemonReader;
+
+            while ((pokemonReader = buffer.readLine()) != null){
+                if (pokemonReader.isBlank()) continue;
+                String[] d = pokemonReader.split(",");
+                if (d.length < 4) continue;
+
+                if (!encontrado && d[1].equalsIgnoreCase(pokemonToDelete.getPkmnName())) {
+                    encontrado = true;
+                    continue;
+                }
+                contenido.append(pokemonReader).append("\n");
+            }
+            buffer.close();
+            if (encontrado){
+                FileWriter writer = new FileWriter("Pokemon.csv", false);
+                writer.write(contenido.toString());
+                writer.close();
+                System.out.println("Pokemon deleted successfully");
+            }
+            else   {
+                System.out.println("No se pudo actualizar el pokemon");
+            }
+        }
+        catch (IOException e){
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static List<Pokemon> ReadPokemon() {
+        File archive = new File("Pokemon.csv");
+        if (!archive.exists()) {
+            System.out.println("No se encontro el pokemon");
+        }
+        try (BufferedReader buffer = new BufferedReader(new FileReader(archive))){
+            String line;
+            while ((line = buffer.readLine()) != null){
+                if (line.isBlank()) {
+                    continue;
+                }
+                String[] d = line.split(",", -1);
+                if (d.length < 4) {
+                    continue;
+                }
+                System.out.println("ID: "+d[0]+ " | Nombre: "+d[1]+ " | Nivel: "+d[2]+ " | Entrenador: "+d[3]);
+            }
+        }
+        catch (IOException e){
+            System.out.println(e.getMessage());
+        }
+        return List.of();
+    }
 }

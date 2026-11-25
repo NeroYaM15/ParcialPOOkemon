@@ -7,13 +7,34 @@ public class Pokemon {
     private Enum Pokedex;
     private String pkmnId;
 
-    public String getPkmnIdId() {
+    public String getPkmnId() {
         return pkmnId;
     }
 
-    public void setPkmnIdId(String Id) {
-        this.pkmnId = Id;
+    public void setPkmnId(String pkmnId) {
+        this.pkmnId = pkmnId;
     }
+
+    public int getPkmnLvl() {
+        return pkmnLvl;
+    }
+    public void setPkmnLvl(int pkmnLvl) {
+        this.pkmnLvl = pkmnLvl;
+    }
+
+    public String getTrainer() {
+        return trainer;
+    }
+    public void setTrainer(String trainer) {
+        this.trainer = trainer;
+    }
+    public String getPkmnName() {
+        return pkmnName;
+    }
+    public void setPkmnName(String pkmnName) {
+        this.pkmnName = pkmnName;
+    }
+//FALTA LA POKEDEX
 
     @Override
     public String toString() {
@@ -25,10 +46,14 @@ public class Pokemon {
                 "]";
     }
 
-    public Pokemon(String nombre, String raza, int nivel, String numero, String trainer, String Id) {
+    public Pokemon(String nombre, int nivel, String trainer, String Id) {
         this.pkmnName = nombre;
         this.pkmnLvl = nivel;
         this.trainer = trainer;
         this.pkmnId = Id;
+    }
+
+    public String PokemonToCSV(){
+        return this.getPkmnId()+","+this.pkmnName+","+this.pkmnLvl+","+this.trainer;
     }
 }
